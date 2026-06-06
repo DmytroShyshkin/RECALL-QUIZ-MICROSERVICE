@@ -8,6 +8,7 @@ import java.util.UUID;
 public interface StartQuizUseCase {
     QuizSession startQuiz(
             UUID userId
+            , String jwt
             , List<String> language
             , int wordCount
     );
