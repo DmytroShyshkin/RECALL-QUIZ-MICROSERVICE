@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface UserProgressPort {
     WordLearningProgress save(WordLearningProgress progress);
-    Optional<WordLearningProgress> findByuserAndWord(
+    Optional<WordLearningProgress> findByUserAndWord(
             UUID userId
             , UUID wordId
             );

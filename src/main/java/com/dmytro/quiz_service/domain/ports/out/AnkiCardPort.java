@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface AnkiCardPort {
     AnkiCard save(AnkiCard card);
     List<AnkiCard> findDueCards( // SM-2 algorithm
-            UUID userId
+            String userEmail
             , LocalDateTime before
     );
 }
