@@ -1,7 +1,8 @@
 ﻿package com.dmytro.quiz_service.adapters.in;
 
+import com.dmytro.quiz_service.adapters.out.dto.WordsApiMapper;
+import com.dmytro.quiz_service.adapters.out.dto.WordsApiResponse;
 import com.dmytro.quiz_service.domain.ports.out.WordsProviderPort;
-import com.dmytro.quiz_service.domain.ports.out.dto.TranslationDTO;
 import com.dmytro.quiz_service.domain.ports.out.dto.WordsDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,13 +10,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
 public class WordsClientAdapter implements WordsProviderPort {
 
     private final WebClient webClient;
+    private final WordsApiMapper mapper;
 
     @Value("${recall.api.url}")
     private String recallApiUrl;
@@ -39,28 +40,7 @@ public class WordsClientAdapter implements WordsProviderPort {
             return List.of();
         }
 
-        return response.content().stream()
-                .map(this::toWordDTO)
-                .toList();
-    }
-
-    private WordsDTO toWordDTO(WordsApiResponse word) {
-        List<TranslationDTO> translations = word.translations() == null
-                ? List.of()
-                : word.translations().stream()
-                  .map(t -> new TranslationDTO(
-                          t.targetLanguage(),
-                          t.translatedWord(),
-                          t.description()
-                  ))
-                  .toList();
-
-        return new WordsDTO(
-                word.id(),
-                word.sourceLanguage(),
-                word.originalWord(),
-                translations
-        );
+        return mapper.toWordDTOList(response.content());
     }
 
     private record PageResponse(
@@ -70,19 +50,5 @@ public class WordsClientAdapter implements WordsProviderPort {
             int totalPages,
             long totalElements,
             boolean last
-    ) {}
-
-    private record WordsApiResponse(
-            UUID id,
-            String sourceLanguage,
-            String originalWord,
-            List<TranslationApiResponse> translations
-    ) {}
-
-    private record TranslationApiResponse(
-            UUID id,
-            String targetLanguage,
-            String translatedWord,
-            String description
     ) {}
 }
