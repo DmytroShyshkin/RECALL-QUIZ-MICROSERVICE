@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.infrastructure.persistence;
+﻿package com.dmytro.quiz_service.infrastructure.persistence.quiz;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

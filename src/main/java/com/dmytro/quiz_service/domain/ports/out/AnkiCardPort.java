@@ -4,12 +4,11 @@ import com.dmytro.quiz_service.domain.model.AnkiCard;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface AnkiCardPort {
     AnkiCard save(AnkiCard card);
-    List<AnkiCard> findDueCards( // SM-2 algorithm
-            String userEmail
-            , LocalDateTime before
-    );
+    Optional<AnkiCard> findById(UUID id);
+    List<AnkiCard> findDueCards(String userEmail, LocalDateTime before);
 }

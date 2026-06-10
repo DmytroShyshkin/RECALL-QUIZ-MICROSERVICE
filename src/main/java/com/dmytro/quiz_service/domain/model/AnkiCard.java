@@ -16,8 +16,17 @@ public class AnkiCard {
     private String userEmail;
     private String word;
     private String translation;
+
+    // FSRS
+    private double stability;      // how long do you remember (in days)
+    private double difficulty;     // how difficult is the word (1.0–10.0)
+    private double retrievability; // probability of recall (0.0–1.0)
+    private int lapses;            // how many times did you forget it?
+
+    private CardState state;       // NEW, LEARNING, REVIEW, RELEARNING
+    // ~FSRS
+
     private int repetitions;
-    private int intervalDays;
-    private double easeFactor;
     private LocalDateTime nextReviewAt;
+    private LocalDateTime lastReviewAt;
 }

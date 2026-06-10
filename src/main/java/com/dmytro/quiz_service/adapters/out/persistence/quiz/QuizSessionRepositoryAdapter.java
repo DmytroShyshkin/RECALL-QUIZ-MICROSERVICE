@@ -1,7 +1,8 @@
-﻿package com.dmytro.quiz_service.adapters.out.persistence;
+﻿package com.dmytro.quiz_service.adapters.out.persistence.quiz;
 
 import com.dmytro.quiz_service.domain.model.QuizSession;
-import com.dmytro.quiz_service.infrastructure.persistence.JpaQuizSessionRepository;
+import com.dmytro.quiz_service.domain.ports.out.QuizRepositoryPort;
+import com.dmytro.quiz_service.infrastructure.persistence.quiz.JpaQuizSessionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +11,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class QuizSessionRepositoryAdapter {
+public class QuizSessionRepositoryAdapter implements QuizRepositoryPort {
     private final JpaQuizSessionRepository repository;
     private final QuizSessionMapper mapper;
 
