@@ -11,6 +11,7 @@ import com.dmytro.quiz_service.domain.ports.out.dto.TranslationDTO;
 import com.dmytro.quiz_service.infrastructure.config.JwtUtil;
 import lombok.AllArgsConstructor;
 
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
@@ -66,9 +67,17 @@ public class AnkiService implements InitiateAnkiCard, NextAnkiCard, ReviewAnkiUs
     }
 
     @Override
-    public AnkiCard review(UUID cardId, int rating) {
+    public AnkiCard review(UUID cardId, int rating, String userEmail) {
         AnkiCard card = ankiCardPort.findById(cardId)
                 .orElseThrow(() -> new IllegalArgumentException("Card not found: " + cardId));
+
+        if (!card.getUserEmail().equals(userEmail)) {
+            try {
+                throw new AccessDeniedException("Not your card");
+            } catch (AccessDeniedException e) {
+                throw new RuntimeException("Not your card. " + e);
+            }
+        }
 
         card.setRetrievability(calculateRetrievability(card));
         card.setDifficulty(updateDifficulty(card.getDifficulty(), rating));
@@ -85,7 +94,7 @@ public class AnkiService implements InitiateAnkiCard, NextAnkiCard, ReviewAnkiUs
         return ankiCardPort.save(card);
     }
 
-    // FSRS методы
+    // ---- FSRS methods ----
     private double calculateRetrievability(AnkiCard card) {
         if (card.getLastReviewAt() == null) return 1.0;
         long daysSince = ChronoUnit.DAYS.between(card.getLastReviewAt(), LocalDateTime.now());

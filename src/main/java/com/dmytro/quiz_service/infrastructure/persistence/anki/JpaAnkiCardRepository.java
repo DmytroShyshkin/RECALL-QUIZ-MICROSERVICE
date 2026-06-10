@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface JpaAnkiCardRepository extends MongoRepository<AnkiCardDocument, UUID> {
-    Optional<AnkiCardDocument> findById(UUID ankiCardId);
     Optional<AnkiCardDocument> findByUserEmailAndId(String userEmail, UUID id);
     List<AnkiCardDocument> findByUserEmailAndNextReviewAtBefore(String userEmail, LocalDateTime before);
 }
