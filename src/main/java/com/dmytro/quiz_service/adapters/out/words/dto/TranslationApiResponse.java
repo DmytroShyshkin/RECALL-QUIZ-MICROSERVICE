@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.adapters.out.dto;
+﻿package com.dmytro.quiz_service.adapters.out.words.dto;
 
 import java.util.UUID;
 

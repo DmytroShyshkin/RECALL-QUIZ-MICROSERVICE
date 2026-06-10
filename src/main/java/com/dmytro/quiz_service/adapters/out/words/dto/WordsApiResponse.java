@@ -1,6 +1,6 @@
-﻿package com.dmytro.quiz_service.adapters.out.dto;
+﻿package com.dmytro.quiz_service.adapters.out.words.dto;
 
-import com.dmytro.quiz_service.adapters.in.WordsClientAdapter;
+import com.dmytro.quiz_service.adapters.out.words.WordsClientAdapter;
 
 import java.util.List;
 import java.util.UUID;
