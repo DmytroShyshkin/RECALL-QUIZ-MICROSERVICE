@@ -2,83 +2,15 @@
 
 import com.dmytro.quiz_service.domain.model.AnkiCard;
 import com.dmytro.quiz_service.domain.model.CardState;
-import com.dmytro.quiz_service.domain.ports.in.InitiateAnkiCard;
-import com.dmytro.quiz_service.domain.ports.in.NextAnkiCard;
-import com.dmytro.quiz_service.domain.ports.in.ReviewAnkiUseCase;
-import com.dmytro.quiz_service.domain.ports.out.AnkiCardPort;
-import com.dmytro.quiz_service.domain.ports.out.WordsProviderPort;
-import com.dmytro.quiz_service.domain.ports.out.dto.TranslationDTO;
-import com.dmytro.quiz_service.infrastructure.config.JwtUtil;
-import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Comparator;
-import java.util.List;
-import java.util.UUID;
 
-@AllArgsConstructor
-public class AnkiService implements InitiateAnkiCard, NextAnkiCard, ReviewAnkiUseCase {
+@Component
+public class AnkiService {
 
-    private final AnkiCardPort ankiCardPort;
-    private final WordsProviderPort wordsProvider;
-    private final JwtUtil jwtUtil;
-
-    @Override
-    public List<AnkiCard> initiateAnkiCard(String jwt, String sourceLanguage, String targetLanguage) {
-        String email = extractEmail(jwt);
-
-        List<AnkiCard> cards = wordsProvider.getWordsByUser(jwt, sourceLanguage).stream()
-                .map(word -> AnkiCard.builder()
-                        .id(UUID.randomUUID())
-                        .wordId(word.wordId())
-                        .userEmail(email)
-                        .word(word.originalWord())
-                        .translation(word.translations().isEmpty()
-                                ? ""
-                                : word.translations().stream()
-                                  .filter(t -> t.targetLanguage().equals(targetLanguage))
-                                  .findFirst()
-                                  .map(TranslationDTO::translatedWord)
-                                  .orElse(""))
-                        .stability(1.0)
-                        .difficulty(5.0)
-                        .retrievability(1.0)
-                        .lapses(0)
-                        .repetitions(0)
-                        .state(CardState.NEW)
-                        .nextReviewAt(LocalDateTime.now())
-                        .build())
-                .filter(card -> !card.getTranslation().isEmpty())
-                .toList();
-
-        return cards.stream()
-                .map(ankiCardPort::save)
-                .toList();
-    }
-
-    @Override
-    public AnkiCard nextAnkiCard(String userEmail) {
-        return ankiCardPort.findDueCards(userEmail, LocalDateTime.now())
-                .stream()
-                .min(Comparator.comparing(AnkiCard::getNextReviewAt))
-                .orElseThrow(() -> new IllegalStateException("No cards due for review"));
-    }
-
-    @Override
-    public AnkiCard review(UUID cardId, int rating, String userEmail) {
-        AnkiCard card = ankiCardPort.findById(cardId)
-                .orElseThrow(() -> new IllegalArgumentException("Card not found: " + cardId));
-
-        if (!card.getUserEmail().equals(userEmail)) {
-            try {
-                throw new AccessDeniedException("Not your card");
-            } catch (AccessDeniedException e) {
-                throw new RuntimeException("Not your card. " + e);
-            }
-        }
-
+    public AnkiCard applyFsrs(AnkiCard card, int rating) {
         card.setRetrievability(calculateRetrievability(card));
         card.setDifficulty(updateDifficulty(card.getDifficulty(), rating));
         card.setStability(updateStability(card, rating));
@@ -91,10 +23,9 @@ public class AnkiService implements InitiateAnkiCard, NextAnkiCard, ReviewAnkiUs
         card.setLastReviewAt(LocalDateTime.now());
         card.setNextReviewAt(LocalDateTime.now().plusDays(interval));
 
-        return ankiCardPort.save(card);
+        return card;
     }
 
-    // ---- FSRS methods ----
     private double calculateRetrievability(AnkiCard card) {
         if (card.getLastReviewAt() == null) return 1.0;
         long daysSince = ChronoUnit.DAYS.between(card.getLastReviewAt(), LocalDateTime.now());
@@ -136,10 +67,5 @@ public class AnkiService implements InitiateAnkiCard, NextAnkiCard, ReviewAnkiUs
 
     private int calculateInterval(double stability) {
         return (int) Math.max(1, Math.round(stability));
-    }
-
-    private String extractEmail(String jwt) {
-        String token = jwt.startsWith("Bearer ") ? jwt.substring(7) : jwt;
-        return jwtUtil.extractEmail(token);
     }
 }

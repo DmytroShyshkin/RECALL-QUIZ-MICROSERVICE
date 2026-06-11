@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.application.usercase;
+﻿package com.dmytro.quiz_service.application.usercase.quiz;
 
 import com.dmytro.quiz_service.domain.model.QuizQuestion;
 import com.dmytro.quiz_service.domain.model.QuizSession;
