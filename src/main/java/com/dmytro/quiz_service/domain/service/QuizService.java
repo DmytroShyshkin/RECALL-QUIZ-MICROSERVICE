@@ -4,12 +4,14 @@ import com.dmytro.quiz_service.domain.model.QuizQuestion;
 import com.dmytro.quiz_service.domain.model.QuizSession;
 import com.dmytro.quiz_service.domain.ports.out.dto.WordsDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+@Component
 public class QuizService {
 
     public List<QuizQuestion> buildQuestions(List<WordsDTO> words) {
