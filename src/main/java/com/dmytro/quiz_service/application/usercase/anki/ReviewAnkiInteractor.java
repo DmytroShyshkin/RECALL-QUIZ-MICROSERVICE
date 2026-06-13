@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.application.usercase.anki;
+package com.dmytro.quiz_service.application.usercase.anki;
 
 import com.dmytro.quiz_service.domain.model.AnkiCard;
 import com.dmytro.quiz_service.domain.ports.in.ReviewAnkiUseCase;
@@ -6,8 +6,8 @@ import com.dmytro.quiz_service.domain.ports.out.AnkiCardPort;
 import com.dmytro.quiz_service.domain.service.AnkiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.security.access.AccessDeniedException;
 
-import java.nio.file.AccessDeniedException;
 import java.util.UUID;
 
 @Component

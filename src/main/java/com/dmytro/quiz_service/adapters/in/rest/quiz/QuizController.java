@@ -1,9 +1,9 @@
-﻿package com.dmytro.quiz_service.adapters.in.rest;
+package com.dmytro.quiz_service.adapters.in.rest.quiz;
 
-import com.dmytro.quiz_service.adapters.in.rest.dto.AnswerQuizRequest;
-import com.dmytro.quiz_service.adapters.in.rest.dto.QuizQuestionResponse;
-import com.dmytro.quiz_service.adapters.in.rest.dto.QuizSessionResponse;
-import com.dmytro.quiz_service.adapters.in.rest.dto.StartQuizRequest;
+import com.dmytro.quiz_service.adapters.in.rest.quiz.dto.AnswerQuizRequest;
+import com.dmytro.quiz_service.adapters.in.rest.quiz.dto.QuizQuestionResponse;
+import com.dmytro.quiz_service.adapters.in.rest.quiz.dto.QuizSessionResponse;
+import com.dmytro.quiz_service.adapters.in.rest.quiz.dto.StartQuizRequest;
 import com.dmytro.quiz_service.domain.model.QuizSession;
 import com.dmytro.quiz_service.domain.ports.in.AnswerQuizUseCase;
 import com.dmytro.quiz_service.domain.ports.in.GetQuizResultUseCase;

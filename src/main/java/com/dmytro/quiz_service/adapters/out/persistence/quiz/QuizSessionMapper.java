@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.adapters.out.persistence.quiz;
+package com.dmytro.quiz_service.adapters.out.persistence.quiz;
 
 import com.dmytro.quiz_service.domain.model.QuizQuestion;
 import com.dmytro.quiz_service.domain.model.QuizSession;

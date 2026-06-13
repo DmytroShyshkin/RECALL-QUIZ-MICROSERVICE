@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.domain.service;
+package com.dmytro.quiz_service.domain.service;
 
 import com.dmytro.quiz_service.domain.model.AnkiCard;
 import com.dmytro.quiz_service.domain.model.CardState;

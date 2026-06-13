@@ -1,7 +1,7 @@
-﻿package com.dmytro.quiz_service.adapters.out.words;
+package com.dmytro.quiz_service.adapters.out.words;
 
-import com.dmytro.quiz_service.adapters.out.words.dto.WordsApiMapper;
-import com.dmytro.quiz_service.adapters.out.words.dto.WordsApiResponse;
+import com.dmytro.quiz_service.adapters.out.dto.WordsApiMapper;
+import com.dmytro.quiz_service.adapters.out.dto.WordsApiResponse;
 import com.dmytro.quiz_service.domain.ports.out.WordsProviderPort;
 import com.dmytro.quiz_service.domain.ports.out.dto.WordsDTO;
 import lombok.RequiredArgsConstructor;

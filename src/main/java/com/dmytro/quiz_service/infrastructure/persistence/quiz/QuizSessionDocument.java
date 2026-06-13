@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.infrastructure.persistence.quiz;
+package com.dmytro.quiz_service.infrastructure.persistence.quiz;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -17,7 +17,6 @@ import java.util.UUID;
 public class QuizSessionDocument {
 
     @Id
-    private UUID id;
     private UUID sessionId;
     private UUID userId;
     private String language;

@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.adapters.out.persistence.anki;
+package com.dmytro.quiz_service.adapters.out.persistence.anki;
 
 import com.dmytro.quiz_service.domain.model.AnkiCard;
 import com.dmytro.quiz_service.domain.ports.out.AnkiCardPort;

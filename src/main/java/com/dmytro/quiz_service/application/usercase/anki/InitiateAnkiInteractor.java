@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.application.usercase.anki;
+package com.dmytro.quiz_service.application.usercase.anki;
 
 import com.dmytro.quiz_service.domain.model.AnkiCard;
 import com.dmytro.quiz_service.domain.model.CardState;
@@ -32,13 +32,10 @@ public class InitiateAnkiInteractor implements InitiateAnkiCard {
                         .wordId(word.wordId())
                         .userEmail(email)
                         .word(word.originalWord())
-                        .translation(word.translations().isEmpty()
-                                ? ""
-                                : word.translations().stream()
-                                  .filter(t -> t.targetLanguage().equals(targetLanguage))
-                                  .findFirst()
-                                  .map(TranslationDTO::translatedWord)
-                                  .orElse(""))
+                        .translations(word.translations().stream()
+                                .filter(t -> t.targetLanguage().equals(targetLanguage))
+                                .map(TranslationDTO::translatedWord)
+                                .toList())
                         .stability(1.0)
                         .difficulty(5.0)
                         .retrievability(1.0)
@@ -47,7 +44,7 @@ public class InitiateAnkiInteractor implements InitiateAnkiCard {
                         .state(CardState.NEW)
                         .nextReviewAt(LocalDateTime.now())
                         .build())
-                .filter(card -> !card.getTranslation().isEmpty())
+                .filter(card -> card.getTranslations() != null && !card.getTranslations().isEmpty())
                 .toList();
 
         return cards.stream()

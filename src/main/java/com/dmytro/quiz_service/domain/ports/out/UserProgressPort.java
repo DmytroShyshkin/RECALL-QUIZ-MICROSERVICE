@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.domain.ports.out;
+package com.dmytro.quiz_service.domain.ports.out;
 
 import com.dmytro.quiz_service.domain.model.WordLearningProgress;
 

@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.infrastructure.persistence.anki;
+package com.dmytro.quiz_service.infrastructure.persistence.anki;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

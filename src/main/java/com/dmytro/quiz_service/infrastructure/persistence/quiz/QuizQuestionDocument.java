@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.infrastructure.persistence.quiz;
+package com.dmytro.quiz_service.infrastructure.persistence.quiz;
 
 import lombok.*;
 

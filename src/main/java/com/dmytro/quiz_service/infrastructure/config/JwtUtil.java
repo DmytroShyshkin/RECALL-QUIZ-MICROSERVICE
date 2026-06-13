@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.infrastructure.config;
+package com.dmytro.quiz_service.infrastructure.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

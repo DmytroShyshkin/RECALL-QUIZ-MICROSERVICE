@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.domain.ports.in;
+package com.dmytro.quiz_service.domain.ports.in;
 
 import com.dmytro.quiz_service.domain.model.AnkiCard;
 

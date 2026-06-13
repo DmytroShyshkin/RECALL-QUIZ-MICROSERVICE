@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.domain.ports.out.dto;
+package com.dmytro.quiz_service.domain.ports.out.dto;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.domain.model;
+package com.dmytro.quiz_service.domain.model;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

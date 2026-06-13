@@ -1,8 +1,9 @@
-﻿package com.dmytro.quiz_service.domain.model;
+package com.dmytro.quiz_service.domain.model;
 
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -15,7 +16,7 @@ public class AnkiCard {
     private UUID wordId;
     private String userEmail;
     private String word;
-    private String translation;
+    private List<String> translations;
 
     // FSRS
     private double stability;      // how long do you remember (in days)

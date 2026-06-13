@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.adapters.out.persistence.quiz;
+package com.dmytro.quiz_service.adapters.out.persistence.quiz;
 
 import com.dmytro.quiz_service.domain.model.QuizSession;
 import com.dmytro.quiz_service.domain.ports.out.QuizRepositoryPort;
@@ -26,13 +26,12 @@ public class QuizSessionRepositoryAdapter implements QuizRepositoryPort {
 
     @Override
     public Optional<QuizSession> findSessionById(UUID sessionId) {
-        return repository.findBySessionId(sessionId)
+        return repository.findById(sessionId)
                 .map(mapper::toDomain);
     }
 
     @Override
     public void deleteById(UUID sessionId) {
-        repository.findBySessionId(sessionId)
-                .ifPresent(doc -> repository.deleteById(doc.getId()));
+        repository.deleteById(sessionId);
     }
 }

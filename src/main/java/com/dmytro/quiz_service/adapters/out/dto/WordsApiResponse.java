@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.adapters.out.words.dto;
+package com.dmytro.quiz_service.adapters.out.dto;
 
 import com.dmytro.quiz_service.adapters.out.words.WordsClientAdapter;
 

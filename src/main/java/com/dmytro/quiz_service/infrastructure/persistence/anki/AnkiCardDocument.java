@@ -1,8 +1,11 @@
-﻿package com.dmytro.quiz_service.infrastructure.persistence.anki;
+package com.dmytro.quiz_service.infrastructure.persistence.anki;
 
+import com.dmytro.quiz_service.domain.model.CardState;
 import lombok.*;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -11,13 +14,21 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class AnkiCardDocument {
+    @Id
     private UUID id;
     private UUID wordId;
     private String userEmail;
     private String word;
-    private String translation;
+    private List<String> translations;
+
+    private double stability;
+    private double difficulty;
+    private double retrievability;
+    private int lapses;
+
+    private CardState state;
+
     private int repetitions;
-    private int intervalDays;
-    private double easeFactor;
     private LocalDateTime nextReviewAt;
+    private LocalDateTime lastReviewAt;
 }

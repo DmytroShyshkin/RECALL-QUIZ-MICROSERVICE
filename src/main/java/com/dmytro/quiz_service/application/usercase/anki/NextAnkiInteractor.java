@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.application.usercase.anki;
+package com.dmytro.quiz_service.application.usercase.anki;
 
 import com.dmytro.quiz_service.domain.model.AnkiCard;
 import com.dmytro.quiz_service.domain.ports.in.NextAnkiCard;
