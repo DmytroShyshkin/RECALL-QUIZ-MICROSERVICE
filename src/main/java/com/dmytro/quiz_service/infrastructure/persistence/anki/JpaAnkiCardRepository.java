@@ -9,5 +9,6 @@ import java.util.UUID;
 
 public interface JpaAnkiCardRepository extends MongoRepository<AnkiCardDocument, UUID> {
     Optional<AnkiCardDocument> findByUserEmailAndId(String userEmail, UUID id);
+    Optional<AnkiCardDocument> findByWordIdAndUserEmail(UUID wordId, String userEmail);
     List<AnkiCardDocument> findByUserEmailAndNextReviewAtBefore(String userEmail, LocalDateTime before);
 }

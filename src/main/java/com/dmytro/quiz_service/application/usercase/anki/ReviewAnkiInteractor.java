@@ -26,6 +26,7 @@ public class ReviewAnkiInteractor implements ReviewAnkiUseCase {
             throw new AccessDeniedException("Not your card");
         }
 
-        return ankiService.applyFsrs(card, rating);
+        AnkiCard updatedCard = ankiService.applyFsrs(card, rating);
+        return ankiCardPort.save(updatedCard);
     }
 }

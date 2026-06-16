@@ -10,5 +10,6 @@ import java.util.UUID;
 public interface AnkiCardPort {
     AnkiCard save(AnkiCard card);
     Optional<AnkiCard> findById(UUID id);
+    Optional<AnkiCard> findByWordIdAndUserEmail(UUID wordId, String userEmail);
     List<AnkiCard> findDueCards(String userEmail, LocalDateTime before);
 }

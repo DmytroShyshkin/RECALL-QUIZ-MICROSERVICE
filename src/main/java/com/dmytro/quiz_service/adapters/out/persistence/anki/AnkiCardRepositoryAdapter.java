@@ -34,6 +34,12 @@ public class AnkiCardRepositoryAdapter implements AnkiCardPort {
     }
 
     @Override
+    public Optional<AnkiCard> findByWordIdAndUserEmail(UUID wordId, String userEmail) {
+        return repository.findByWordIdAndUserEmail(wordId, userEmail)
+                .map(mapper::toDomain);
+    }
+
+    @Override
     public List<AnkiCard> findDueCards(String userEmail, LocalDateTime before) {
         return repository
                 .findByUserEmailAndNextReviewAtBefore(userEmail, before)

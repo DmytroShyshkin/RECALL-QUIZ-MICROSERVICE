@@ -26,29 +26,34 @@ public class InitiateAnkiInteractor implements InitiateAnkiCard {
     public List<AnkiCard> initiateAnkiCard(String jwt, String sourceLanguage, String targetLanguage) {
         String email = extractEmail(jwt);
 
-        List<AnkiCard> cards = wordsProvider.getWordsByUser(jwt, sourceLanguage).stream()
-                .map(word -> AnkiCard.builder()
-                        .id(UUID.randomUUID())
-                        .wordId(word.wordId())
-                        .userEmail(email)
-                        .word(word.originalWord())
-                        .translations(word.translations().stream()
-                                .filter(t -> t.targetLanguage().equals(targetLanguage))
-                                .map(TranslationDTO::translatedWord)
-                                .toList())
-                        .stability(1.0)
-                        .difficulty(5.0)
-                        .retrievability(1.0)
-                        .lapses(0)
-                        .repetitions(0)
-                        .state(CardState.NEW)
-                        .nextReviewAt(LocalDateTime.now())
-                        .build())
-                .filter(card -> card.getTranslations() != null && !card.getTranslations().isEmpty())
-                .toList();
+        return wordsProvider.getWordsByUser(jwt, sourceLanguage).stream()
+                .filter(word -> word.wordId() != null)
+                .map(word -> {
+                    List<String> translations = word.translations().stream()
+                            .filter(t -> t.targetLanguage().equals(targetLanguage))
+                            .map(TranslationDTO::translatedWord)
+                            .toList();
 
-        return cards.stream()
-                .map(ankiCardPort::save)
+                    if (translations.isEmpty()) return null;
+
+                    // Если карточка уже существует — возвращаем её, не создаём дубликат
+                    return ankiCardPort.findByWordIdAndUserEmail(word.wordId(), email)
+                            .orElseGet(() -> ankiCardPort.save(AnkiCard.builder()
+                                    .id(UUID.randomUUID())
+                                    .wordId(word.wordId())
+                                    .userEmail(email)
+                                    .word(word.originalWord())
+                                    .translations(translations)
+                                    .stability(1.0)
+                                    .difficulty(5.0)
+                                    .retrievability(1.0)
+                                    .lapses(0)
+                                    .repetitions(0)
+                                    .state(CardState.NEW)
+                                    .nextReviewAt(LocalDateTime.now())
+                                    .build()));
+                })
+                .filter(card -> card != null)
                 .toList();
     }
 
