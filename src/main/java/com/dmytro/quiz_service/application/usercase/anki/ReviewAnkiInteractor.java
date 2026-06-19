@@ -32,9 +32,9 @@ public class ReviewAnkiInteractor implements ReviewAnkiUseCase {
         AnkiCard updatedCard = ankiService.applyFsrs(card, rating);
         AnkiCard saved = ankiCardPort.save(updatedCard);
 
-        // sending event in Kafka
         producer.sendReviewEvent(new AnkiCardReviewedEvent(
                 saved.getId(),
+                saved.getWordId(),
                 saved.getUserEmail(),
                 rating,
                 saved.getState().name()

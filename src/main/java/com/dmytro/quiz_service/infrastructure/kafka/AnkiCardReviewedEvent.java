@@ -3,8 +3,9 @@
 import java.util.UUID;
 
 public record AnkiCardReviewedEvent(
-        UUID cardId,
-        String userEmail,
-        int rating,
-        String newState
+        UUID cardId
+        , UUID wordId
+        , String userEmail
+        , int rating
+        , String newState
 ) {}
