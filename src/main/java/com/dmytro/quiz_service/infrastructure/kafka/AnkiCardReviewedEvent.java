@@ -1,4 +1,4 @@
-﻿package com.dmytro.quiz_service.infrastructure.kafka;
+package com.dmytro.quiz_service.infrastructure.kafka;
 
 import java.util.UUID;
 
