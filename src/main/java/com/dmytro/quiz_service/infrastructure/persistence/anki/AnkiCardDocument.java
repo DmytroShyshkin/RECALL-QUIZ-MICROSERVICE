@@ -3,11 +3,13 @@ package com.dmytro.quiz_service.infrastructure.persistence.anki;
 import com.dmytro.quiz_service.domain.model.CardState;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+@Document(collection = "ankiCardDocument")
 @Getter
 @Setter
 @NoArgsConstructor
