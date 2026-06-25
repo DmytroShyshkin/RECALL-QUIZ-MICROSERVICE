@@ -1,4 +1,4 @@
-package com.dmytro.quiz_service.domain.model;
+package com.dmytro.quiz_service.infrastructure.persistence.quiz;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class QuizQuestion {
+public class QuizQuestionDocument {
     private UUID wordId;
     private String question;
     private List<String> options;
