@@ -29,7 +29,9 @@ public class AnkiService {
     private double calculateRetrievability(AnkiCard card) {
         if (card.getLastReviewAt() == null) return 1.0;
         long daysSince = ChronoUnit.DAYS.between(card.getLastReviewAt(), LocalDateTime.now());
-        return Math.pow(0.9, daysSince / card.getStability());
+        if (daysSince == 0) return 1.0;
+        if (card.getStability() <= 0) return 0.0;
+        return Math.pow(0.9, (double) daysSince / card.getStability());
     }
 
     private double updateDifficulty(double difficulty, int rating) {

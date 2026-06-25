@@ -28,6 +28,7 @@ public class KafkaProducerConfig {
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JacksonJsonSerializer.class);
+        props.put("spring.json.use.type.headers", false);
         props.put("security.protocol", "SASL_SSL");
         props.put("sasl.mechanism", "PLAIN");
         props.put("sasl.jaas.config", jaasConfig);
