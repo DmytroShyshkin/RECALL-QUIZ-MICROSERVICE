@@ -137,6 +137,14 @@
 			<version>1.5.22</version>
 		</dependency>
 
+		<!-- Source: https://mvnrepository.com/artifact/org.webjars/swagger-ui -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>swagger-ui</artifactId>
+			<version>5.32.8</version>
+			<scope>compile</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-annotations</artifactId>
