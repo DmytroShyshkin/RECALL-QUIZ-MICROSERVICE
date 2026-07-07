@@ -36,7 +36,7 @@ public class InitiateAnkiInteractor implements InitiateAnkiCard {
 
                     if (translations.isEmpty()) return null;
 
-                    // Если карточка уже существует — возвращаем её, не создаём дубликат
+                    // If the card already exists, we return it; we do not create a duplicate.
                     return ankiCardPort.findByWordIdAndUserEmail(word.wordId(), email)
                             .orElseGet(() -> ankiCardPort.save(AnkiCard.builder()
                                     .id(UUID.randomUUID())
