@@ -165,14 +165,6 @@
 			<version>1.5.22</version>
 		</dependency>
 		<!-- ~Swagger -->
-
-		<!-- For MongoDB Atlas -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-mongodb</artifactId>
-			<version>4.3.0</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
