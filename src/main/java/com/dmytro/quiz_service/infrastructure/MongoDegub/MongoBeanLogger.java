@@ -1,4 +1,4 @@
-package com.dmytro.quiz_service.infrastructure.config;
+package com.dmytro.quiz_service.infrastructure.MongoDegub;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

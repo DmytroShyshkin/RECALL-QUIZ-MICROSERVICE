@@ -1,4 +1,4 @@
-package com.dmytro.quiz_service.infrastructure.config;
+package com.dmytro.quiz_service.infrastructure.MongoDegub;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
