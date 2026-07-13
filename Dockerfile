@@ -1,4 +1,4 @@
-﻿FROM eclipse-temurin:21-jdk-alpine AS builder
+﻿FROM eclipse-temurin:21-jdk-jammy AS builder
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ COPY .mvn ./.mvn
 
 RUN chmod +x mvnw && ./mvnw clean package -DskipTests
 
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:21-jre-jammy
 
 WORKDIR /app
 
