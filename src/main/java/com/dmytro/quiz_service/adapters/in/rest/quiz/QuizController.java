@@ -61,7 +61,7 @@ public class QuizController {
         return ResponseEntity.ok(toResponse(session));
     }
 
-    @DeleteMapping("/{sessionId}deleteSession")
+    @DeleteMapping("/{sessionId}/deleteSession")
     public ResponseEntity<QuizSessionResponse> delete(
             @PathVariable UUID sessionId
     ) {
