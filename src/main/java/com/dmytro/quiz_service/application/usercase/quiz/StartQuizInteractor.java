@@ -29,7 +29,9 @@ public class StartQuizInteractor implements StartQuizUseCase {
 
         List<WordsDTO> allWords = new ArrayList<>();
         for (String lang : languages) {
-            allWords.addAll(wordsProvider.getWordsByUser(jwt, lang));
+            wordsProvider.getWordsByUser(jwt, lang).stream()
+                    .filter(word -> languages.contains(word.sourceLanguage()))
+                    .forEach(allWords::add);
         }
 
         if (allWords.isEmpty()) {
