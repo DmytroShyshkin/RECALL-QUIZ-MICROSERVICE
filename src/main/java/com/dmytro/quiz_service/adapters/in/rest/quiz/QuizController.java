@@ -6,6 +6,7 @@ import com.dmytro.quiz_service.adapters.in.rest.quiz.dto.QuizSessionResponse;
 import com.dmytro.quiz_service.adapters.in.rest.quiz.dto.StartQuizRequest;
 import com.dmytro.quiz_service.domain.model.QuizSession;
 import com.dmytro.quiz_service.domain.ports.in.AnswerQuizUseCase;
+import com.dmytro.quiz_service.domain.ports.in.DeleteQuizSessionUseCase;
 import com.dmytro.quiz_service.domain.ports.in.GetQuizResultUseCase;
 import com.dmytro.quiz_service.domain.ports.in.StartQuizUseCase;
 import com.dmytro.quiz_service.infrastructure.config.JwtUtil;
@@ -23,6 +24,7 @@ public class QuizController {
     private final StartQuizUseCase startQuiz;
     private final AnswerQuizUseCase answerQuiz;
     private final GetQuizResultUseCase getQuizResult;
+    private final DeleteQuizSessionUseCase deleteQuizSession;
     private final JwtUtil jwtUtil;
 
     @PostMapping("/start")
@@ -57,6 +59,14 @@ public class QuizController {
     ) {
         QuizSession session = getQuizResult.getQuizResult(sessionId);
         return ResponseEntity.ok(toResponse(session));
+    }
+
+    @DeleteMapping("/{sessionId}deleteSession")
+    public ResponseEntity<QuizSessionResponse> delete(
+            @PathVariable UUID sessionId
+    ) {
+        deleteQuizSession.deleteSession(sessionId);
+        return ResponseEntity.noContent().build();
     }
 
     private QuizSessionResponse toResponse(QuizSession session) {
