@@ -20,5 +20,7 @@ public class QuizSession {
     private List<QuizQuestion> questions;
     private int currentIndex;
     private int score;
+    private List<QuizQuestion> correctAnswer;
+    private List<QuizQuestion> wrongAnswer;
     private boolean completed;
 }

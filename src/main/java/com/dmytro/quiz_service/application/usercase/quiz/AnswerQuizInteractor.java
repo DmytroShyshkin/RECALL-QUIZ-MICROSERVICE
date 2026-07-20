@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -29,6 +31,9 @@ public class AnswerQuizInteractor implements AnswerQuizUseCase {
         }
 
         QuizQuestion current = session.getQuestions().get(session.getCurrentIndex());
+        List<QuizQuestion> correctAnswers = new ArrayList<>();
+        List<QuizQuestion> wrongAnswer = new ArrayList<>();
+
         current.setUserAnswer(userAnswer);
 
         boolean correct = quizService.checkAnswer(current, userAnswer);
@@ -36,6 +41,11 @@ public class AnswerQuizInteractor implements AnswerQuizUseCase {
 
         if (correct) {
             session.setScore(session.getScore() + 1);
+            correctAnswers.add(current);
+            session.setCorrectAnswer(correctAnswers);
+        }else {
+            wrongAnswer.add(current);
+            session.setWrongAnswer(wrongAnswer);
         }
 
         int nextIndex = session.getCurrentIndex() + 1;

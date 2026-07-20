@@ -8,6 +8,8 @@ public record QuizSessionResponse(
         , int totalQuestions
         , int score
         , boolean completed
+        , QuizQuestionResponse[] correctAnswer
+        , QuizQuestionResponse[] wrongAnswer
         , QuizQuestionResponse currentQuestion
 ) {
 }
