@@ -25,6 +25,7 @@ public class QuizController {
     private final AnswerQuizUseCase answerQuiz;
     private final GetQuizResultUseCase getQuizResult;
     private final DeleteQuizSessionUseCase deleteQuizSession;
+    private final QuizResponseMapper quizResponseMapper;
     private final JwtUtil jwtUtil;
 
     @PostMapping("/start")
@@ -73,12 +74,8 @@ public class QuizController {
         QuizQuestionResponse currentQuestion = null;
 
         if (!session.isCompleted() && session.getQuestions() != null) {
-            var q = session.getQuestions().get(session.getCurrentIndex());
-            currentQuestion = new QuizQuestionResponse(
-                    q.getWordId(),
-                    q.getQuestion(),
-                    q.getOptions(),
-                    q.getLanguage()
+            currentQuestion = quizResponseMapper.toQuestionResponse(
+                    session.getQuestions().get(session.getCurrentIndex())
             );
         }
 
@@ -88,6 +85,8 @@ public class QuizController {
                 session.getQuestions() != null ? session.getQuestions().size() : 0,
                 session.getScore(),
                 session.isCompleted(),
+                quizResponseMapper.toQuestionResponseList(session.getCorrectAnswer()),
+                quizResponseMapper.toQuestionResponseList(session.getWrongAnswer()),
                 currentQuestion
         );
     }

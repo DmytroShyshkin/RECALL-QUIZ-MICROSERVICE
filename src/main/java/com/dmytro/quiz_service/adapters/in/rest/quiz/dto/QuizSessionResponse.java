@@ -1,5 +1,6 @@
 package com.dmytro.quiz_service.adapters.in.rest.quiz.dto;
 
+import java.util.List;
 import java.util.UUID;
 
 public record QuizSessionResponse(
@@ -8,8 +9,8 @@ public record QuizSessionResponse(
         , int totalQuestions
         , int score
         , boolean completed
-        , QuizQuestionResponse[] correctAnswer
-        , QuizQuestionResponse[] wrongAnswer
+        , List<QuizQuestionResponse> correctAnswer
+        , List<QuizQuestionResponse> wrongAnswer
         , QuizQuestionResponse currentQuestion
 ) {
 }

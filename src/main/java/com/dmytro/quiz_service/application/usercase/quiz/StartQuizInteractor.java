@@ -53,6 +53,8 @@ public class StartQuizInteractor implements StartQuizUseCase {
                 .currentIndex(0)
                 .score(0)
                 .completed(false)
+                .correctAnswer(new ArrayList<>())
+                .wrongAnswer(new ArrayList<>())
                 .build();
 
         return quizRepository.save(session);
