@@ -25,5 +25,7 @@ public class QuizSessionDocument {
     private List<QuizQuestionDocument> questions;
     private int currentIndex;
     private int score;
+    private List<QuizQuestionDocument> correctAnswer;
+    private List<QuizQuestionDocument> wrongAnswer;
     private boolean completed;
 }
