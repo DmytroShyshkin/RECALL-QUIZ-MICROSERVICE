@@ -1,4 +1,4 @@
-package com.dmytro.quiz_service.infrastructure.kafka;
+package com.dmytro.quiz_service.infrastructure.kafka.anki;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
