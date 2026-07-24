@@ -40,6 +40,12 @@ public class AnkiCardRepositoryAdapter implements AnkiCardPort {
     }
 
     @Override
+    public Optional<AnkiCard> deleteByWordIdAndUserEmail(UUID wordId, String userEmail) {
+        return repository.deleteByWordIdAndUserEmail(wordId, userEmail)
+                .map(mapper::toDomain);
+    }
+
+    @Override
     public List<AnkiCard> findDueCards(String userEmail, LocalDateTime before) {
         return repository
                 .findByUserEmailAndNextReviewAtBefore(userEmail, before)

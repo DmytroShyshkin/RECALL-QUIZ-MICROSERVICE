@@ -11,5 +11,6 @@ public interface AnkiCardPort {
     AnkiCard save(AnkiCard card);
     Optional<AnkiCard> findById(UUID id);
     Optional<AnkiCard> findByWordIdAndUserEmail(UUID wordId, String userEmail);
+    Optional<AnkiCard> deleteByWordIdAndUserEmail(UUID wordId, String userEmail);
     List<AnkiCard> findDueCards(String userEmail, LocalDateTime before);
 }
