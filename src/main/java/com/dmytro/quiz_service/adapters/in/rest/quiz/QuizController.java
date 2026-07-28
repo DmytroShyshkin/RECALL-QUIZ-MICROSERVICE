@@ -5,10 +5,7 @@ import com.dmytro.quiz_service.adapters.in.rest.quiz.dto.QuizQuestionResponse;
 import com.dmytro.quiz_service.adapters.in.rest.quiz.dto.QuizSessionResponse;
 import com.dmytro.quiz_service.adapters.in.rest.quiz.dto.StartQuizRequest;
 import com.dmytro.quiz_service.domain.model.QuizSession;
-import com.dmytro.quiz_service.domain.ports.in.AnswerQuizUseCase;
-import com.dmytro.quiz_service.domain.ports.in.DeleteQuizSessionUseCase;
-import com.dmytro.quiz_service.domain.ports.in.GetQuizResultUseCase;
-import com.dmytro.quiz_service.domain.ports.in.StartQuizUseCase;
+import com.dmytro.quiz_service.domain.ports.in.*;
 import com.dmytro.quiz_service.infrastructure.config.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +22,7 @@ public class QuizController {
     private final AnswerQuizUseCase answerQuiz;
     private final GetQuizResultUseCase getQuizResult;
     private final DeleteQuizSessionUseCase deleteQuizSession;
+    private final DeleteAllQuizSessionsUseCase deleteAllQuizCards;
     private final QuizResponseMapper quizResponseMapper;
     private final JwtUtil jwtUtil;
 
@@ -67,6 +65,21 @@ public class QuizController {
             @PathVariable UUID sessionId
     ) {
         deleteQuizSession.deleteSession(sessionId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("deleteAllQuizSessions")
+    public ResponseEntity<Void> deleteAllQuizSessions(
+            @RequestHeader("Authorization") String jwt
+            , @RequestBody String userEmail
+    ) {
+        String email = jwtUtil.extractEmail(jwt);
+
+        if(!email.equals(userEmail)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        deleteAllQuizCards.deleteAllQuizCards(userEmail);
         return ResponseEntity.noContent().build();
     }
 

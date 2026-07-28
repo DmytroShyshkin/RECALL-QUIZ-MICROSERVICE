@@ -9,4 +9,5 @@ public interface QuizRepositoryPort {
     QuizSession save(QuizSession session);
     Optional<QuizSession> findSessionById(UUID sessionId);
     void deleteById(UUID sessionId);
+    void deleteAllByUserId(UUID userId);
 }

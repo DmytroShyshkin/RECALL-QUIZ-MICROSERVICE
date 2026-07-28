@@ -34,4 +34,9 @@ public class QuizSessionRepositoryAdapter implements QuizRepositoryPort {
     public void deleteById(UUID sessionId) {
         repository.deleteById(sessionId);
     }
+
+    @Override
+    public void deleteAllByUserId(UUID userId) {
+        repository.deleteAllByUserId(userId);
+    }
 }

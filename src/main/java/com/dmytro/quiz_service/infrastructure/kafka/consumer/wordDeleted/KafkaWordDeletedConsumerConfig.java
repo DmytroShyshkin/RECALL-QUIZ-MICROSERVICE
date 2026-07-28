@@ -1,4 +1,4 @@
-package com.dmytro.quiz_service.infrastructure.kafka.word;
+package com.dmytro.quiz_service.infrastructure.kafka.consumer.wordDeleted;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 @EnableKafka
 @Configuration
-public class KafkaConsumerConfig {
+public class KafkaWordDeletedConsumerConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;

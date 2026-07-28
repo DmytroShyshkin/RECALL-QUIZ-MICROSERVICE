@@ -1,4 +1,4 @@
-package com.dmytro.quiz_service.infrastructure.kafka.word;
+package com.dmytro.quiz_service.infrastructure.kafka.consumer.wordDeleted;
 
 import com.dmytro.quiz_service.domain.model.AnkiCard;
 import com.dmytro.quiz_service.domain.ports.in.DeleteAnkiCardUseCase;

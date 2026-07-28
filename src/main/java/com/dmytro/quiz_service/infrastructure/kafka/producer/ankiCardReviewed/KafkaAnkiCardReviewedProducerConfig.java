@@ -1,4 +1,4 @@
-package com.dmytro.quiz_service.infrastructure.kafka.anki;
+package com.dmytro.quiz_service.infrastructure.kafka.producer.ankiCardReviewed;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class KafkaProducerConfig {
+public class KafkaAnkiCardReviewedProducerConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
