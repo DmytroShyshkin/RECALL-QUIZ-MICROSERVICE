@@ -1,4 +1,4 @@
-package com.dmytro.quiz_service.infrastructure.kafka.word;
+package com.dmytro.quiz_service.infrastructure.kafka.consumer.wordDeleted;
 
 import java.util.UUID;
 

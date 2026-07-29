@@ -46,6 +46,14 @@ public class AnkiCardRepositoryAdapter implements AnkiCardPort {
     }
 
     @Override
+    public List<AnkiCard> deleteAllByUserEmail(String userEmail) {
+        return repository.deleteAllByUserEmail(userEmail)
+                .stream()
+                .map(mapper::toDomain)
+                .toList();
+    }
+
+    @Override
     public List<AnkiCard> findDueCards(String userEmail, LocalDateTime before) {
         return repository
                 .findByUserEmailAndNextReviewAtBefore(userEmail, before)

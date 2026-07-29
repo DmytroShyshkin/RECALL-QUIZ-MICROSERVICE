@@ -1,4 +1,4 @@
-package com.dmytro.quiz_service.infrastructure.kafka.anki;
+package com.dmytro.quiz_service.infrastructure.kafka.producer.ankiCardReviewed;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;

@@ -1,5 +1,6 @@
 package com.dmytro.quiz_service.infrastructure.persistence.anki;
 
+import com.dmytro.quiz_service.domain.model.AnkiCard;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.time.LocalDateTime;
@@ -11,5 +12,6 @@ public interface JpaAnkiCardRepository extends MongoRepository<AnkiCardDocument,
     Optional<AnkiCardDocument> findByUserEmailAndId(String userEmail, UUID id);
     Optional<AnkiCardDocument> findByWordIdAndUserEmail(UUID wordId, String userEmail);
     Optional<AnkiCardDocument> deleteByWordIdAndUserEmail(UUID wordId, String userEmail);
+    List<AnkiCardDocument> deleteAllByUserEmail(String userEmail);
     List<AnkiCardDocument> findByUserEmailAndNextReviewAtBefore(String userEmail, LocalDateTime before);
 }

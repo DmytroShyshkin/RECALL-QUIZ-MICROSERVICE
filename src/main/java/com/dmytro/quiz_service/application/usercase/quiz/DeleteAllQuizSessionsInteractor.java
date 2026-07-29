@@ -18,6 +18,7 @@ public class DeleteAllQuizSessionsInteractor implements DeleteAllQuizSessionsUse
             throw new IllegalArgumentException("userEmail must not be null or blank");
         }
 
+        
         UUID userId = UUID.nameUUIDFromBytes(userEmail.getBytes());
 
         quizRepositoryPort.deleteAllByUserId(userId);
