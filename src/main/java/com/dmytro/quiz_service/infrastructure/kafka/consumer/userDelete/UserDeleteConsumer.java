@@ -13,9 +13,13 @@ public class UserDeleteConsumer {
     private final DeleteAllAnkiCardsUseCase deleteAllAnkiCardsUseCase;
     private final DeleteAllQuizSessionsUseCase deleteAllQuizSessionsUseCase;
 
-    @KafkaListener(topics="recall.user.delete", groupId="delete-user")
+    @KafkaListener(
+            topics="recall.user.delete"
+            , groupId="delete-user"
+            , containerFactory = "userDeleteContainerFactory"
+    )
     public void handlerDeleteUser(UserDeleteEvent event){
-        deleteAllAnkiCardsUseCase.deleteAllAnkiCards(event.userEmail);
-        deleteAllQuizSessionsUseCase.deleteAllQuizCards(event.userEmail);
+        deleteAllAnkiCardsUseCase.deleteAllAnkiCards(event.userEmail());
+        deleteAllQuizSessionsUseCase.deleteAllQuizCards(event.userEmail());
     }
 }

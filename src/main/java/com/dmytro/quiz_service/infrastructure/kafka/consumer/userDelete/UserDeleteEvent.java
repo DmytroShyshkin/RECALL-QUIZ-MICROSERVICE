@@ -1,8 +1,8 @@
 package com.dmytro.quiz_service.infrastructure.kafka.consumer.userDelete;
 
-public class UserDeleteEvent {
-    String userEmail;
-
+public record UserDeleteEvent(
+        String userEmail
+) {
     /*
     public UserDeleteEvent() {}
 
@@ -17,5 +17,5 @@ public class UserDeleteEvent {
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
-     */
+    */
 }

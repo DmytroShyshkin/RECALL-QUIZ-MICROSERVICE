@@ -29,11 +29,11 @@ public class UserDeleteConsumerConfig {
     @Value("${spring.kafka.properties.ssl.truststore.certificates}")
     private String trustStoreCertificates;
 
-    @Bean
+    @Bean("userDeletedConsumerFactory")
     public ConsumerFactory<String, UserDeleteEvent> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "microservice");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "delete-user");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JacksonJsonDeserializer.class);
@@ -52,7 +52,7 @@ public class UserDeleteConsumerConfig {
         return new DefaultKafkaConsumerFactory<>(props);
     }
 
-    @Bean
+    @Bean("userDeleteContainerFactory")
     public ConcurrentKafkaListenerContainerFactory<String, UserDeleteEvent> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, UserDeleteEvent> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();

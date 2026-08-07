@@ -14,7 +14,11 @@ public class WordDeletedConsumer {
 
     private final DeleteAnkiCardUseCase deleteAnkiCardUseCase;
 
-    @KafkaListener(topics="anki.card.reviewed", groupId="microservice")
+    @KafkaListener(
+            topics="anki.card.reviewed"
+            , groupId="word-deleted-consumer"
+            , containerFactory = "wordDeleteContainerFactory"
+    )
     public Optional<AnkiCard> handlerDeleteWord(WordDeletedEvent event){
         return deleteAnkiCardUseCase.deleteAnkiCard(event.wordId(), event.userEmail());
     }
