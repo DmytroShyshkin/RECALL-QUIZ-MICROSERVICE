@@ -15,7 +15,7 @@ public class WordDeletedConsumer {
     private final DeleteAnkiCardUseCase deleteAnkiCardUseCase;
 
     @KafkaListener(
-            topics="anki.card.reviewed"
+            topics="recall.delete.word"
             , groupId="word-deleted-consumer"
             , containerFactory = "wordDeleteContainerFactory"
     )

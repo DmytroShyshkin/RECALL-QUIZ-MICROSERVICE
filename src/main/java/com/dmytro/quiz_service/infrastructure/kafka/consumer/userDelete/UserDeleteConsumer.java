@@ -3,10 +3,10 @@ package com.dmytro.quiz_service.infrastructure.kafka.consumer.userDelete;
 import com.dmytro.quiz_service.domain.ports.in.DeleteAllAnkiCardsUseCase;
 import com.dmytro.quiz_service.domain.ports.in.DeleteAllQuizSessionsUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 @RequiredArgsConstructor
 public class UserDeleteConsumer {
 
