@@ -49,8 +49,10 @@ public class AnkiController {
             @RequestHeader("Authorization") String jwt
     ) {
         String email = jwtUtil.extractEmail(jwt);
-        AnkiCard card = nextAnkiCard.nextAnkiCard(email);
-        return ResponseEntity.ok(toResponse(card));
+
+        return nextAnkiCard.nextAnkiCard(email)
+                .map(card -> ResponseEntity.ok(toResponse(card)))
+                .orElseGet(() -> ResponseEntity.noContent().build());
     }
 
     // rate this card (1–4)

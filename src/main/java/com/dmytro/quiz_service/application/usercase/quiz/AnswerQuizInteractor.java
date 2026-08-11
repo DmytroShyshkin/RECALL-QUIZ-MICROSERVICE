@@ -1,5 +1,7 @@
 package com.dmytro.quiz_service.application.usercase.quiz;
 
+import com.dmytro.quiz_service.domain.exception.QuizAlreadyCompletedException;
+import com.dmytro.quiz_service.domain.exception.QuizSessionNotFoundException;
 import com.dmytro.quiz_service.domain.model.QuizQuestion;
 import com.dmytro.quiz_service.domain.model.QuizSession;
 import com.dmytro.quiz_service.domain.ports.in.AnswerQuizUseCase;
@@ -9,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -24,10 +24,10 @@ public class AnswerQuizInteractor implements AnswerQuizUseCase {
     public QuizSession answerQuiz(UUID sessionId, String userAnswer) {
 
         QuizSession session = quizRepository.findSessionById(sessionId)
-                .orElseThrow(() -> new IllegalArgumentException("Session not found: " + sessionId));
+                .orElseThrow(() -> new QuizSessionNotFoundException(sessionId.toString()));
 
         if (session.isCompleted()) {
-            throw new IllegalStateException("Session already completed");
+            throw new QuizAlreadyCompletedException(sessionId.toString());
         }
 
         QuizQuestion current = session.getQuestions().get(session.getCurrentIndex());

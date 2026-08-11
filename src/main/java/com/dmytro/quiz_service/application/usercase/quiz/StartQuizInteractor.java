@@ -1,5 +1,6 @@
 package com.dmytro.quiz_service.application.usercase.quiz;
 
+import com.dmytro.quiz_service.domain.exception.NoWordsAvailableException;
 import com.dmytro.quiz_service.domain.model.QuizQuestion;
 import com.dmytro.quiz_service.domain.model.QuizSession;
 import com.dmytro.quiz_service.domain.ports.in.StartQuizUseCase;
@@ -35,7 +36,7 @@ public class StartQuizInteractor implements StartQuizUseCase {
         }
 
         if (allWords.isEmpty()) {
-            throw new IllegalStateException("No words available for quiz");
+            throw new NoWordsAvailableException();
         }
 
         Collections.shuffle(allWords);

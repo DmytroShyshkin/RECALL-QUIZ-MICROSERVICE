@@ -1,5 +1,6 @@
 package com.dmytro.quiz_service.application.usercase.quiz;
 
+import com.dmytro.quiz_service.domain.exception.QuizSessionNotFoundException;
 import com.dmytro.quiz_service.domain.model.QuizSession;
 import com.dmytro.quiz_service.domain.ports.in.GetQuizResultUseCase;
 import com.dmytro.quiz_service.domain.ports.out.QuizRepositoryPort;
@@ -17,6 +18,6 @@ public class GetQuizResultInteractor implements GetQuizResultUseCase {
     @Override
     public QuizSession getQuizResult(UUID sessionId) {
         return quizRepository.findSessionById(sessionId)
-                .orElseThrow(() -> new IllegalArgumentException("Session not found: " + sessionId));
+                .orElseThrow(() -> new QuizSessionNotFoundException(sessionId.toString()));
     }
 }
