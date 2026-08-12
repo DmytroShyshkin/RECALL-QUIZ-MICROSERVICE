@@ -44,6 +44,7 @@ public class ReviewAnkiInteractor implements ReviewAnkiUseCase {
             producer.sendReviewEvent(new AnkiCardReviewedEvent(
                     saved.getId(),
                     saved.getWordId(),
+                    saved.getWord(),
                     saved.getUserEmail(),
                     rating,
                     saved.getState().name()
