@@ -37,9 +37,6 @@ public class ReviewAnkiInteractor implements ReviewAnkiUseCase {
         AnkiCard updatedCard = ankiService.applyFsrs(card, rating);
         AnkiCard saved = ankiCardPort.save(updatedCard);
 
-        // Ревизия карточки уже сохранена в базу - если Kafka сейчас недоступна,
-        // это не должно приводить к 500 для пользователя. Раньше сбой продюсера
-        // ронял весь запрос без такой защиты.
         try {
             producer.sendReviewEvent(new AnkiCardReviewedEvent(
                     saved.getId(),
