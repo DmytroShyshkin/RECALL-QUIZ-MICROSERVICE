@@ -1,16 +1,17 @@
 package com.dmytro.quiz_service.infrastructure.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
+
 @Component
+@AllArgsConstructor
 public class MongoEnvChecker {
 
-    @Autowired
-    private Environment env;
+    private final Environment env;
 
     @EventListener(ApplicationReadyEvent.class)
     public void onReady() {

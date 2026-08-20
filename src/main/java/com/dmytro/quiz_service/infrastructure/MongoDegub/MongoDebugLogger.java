@@ -1,7 +1,9 @@
 package com.dmytro.quiz_service.infrastructure.MongoDegub;
 
 import com.mongodb.ConnectionString;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.AllArgsConstructor;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -9,13 +11,12 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class MongoDebugLogger {
 
-    @Autowired
-    private ApplicationContext ctx;
+    private final ApplicationContext ctx;
 
-    @Autowired
-    private Environment env;
+    private final Environment env;
 
     @EventListener(ApplicationReadyEvent.class)
     public void onReady() {

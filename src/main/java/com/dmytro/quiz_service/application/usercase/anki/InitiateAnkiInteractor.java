@@ -22,6 +22,7 @@ public class InitiateAnkiInteractor implements InitiateAnkiCard {
     private final AnkiCardPort ankiCardPort;
     private final JwtUtil jwtUtil;
 
+    @SuppressWarnings("null")
     @Override
     public List<AnkiCard> initiateAnkiCard(String jwt, String sourceLanguage, String targetLanguage) {
         String email = extractEmail(jwt);

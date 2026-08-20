@@ -1,9 +1,7 @@
 package com.dmytro.quiz_service.domain.service;
 
 import com.dmytro.quiz_service.domain.model.QuizQuestion;
-import com.dmytro.quiz_service.domain.model.QuizSession;
 import com.dmytro.quiz_service.domain.ports.out.dto.WordsDTO;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

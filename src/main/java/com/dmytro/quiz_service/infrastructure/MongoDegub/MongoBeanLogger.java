@@ -1,17 +1,21 @@
 package com.dmytro.quiz_service.infrastructure.MongoDegub;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+
+import lombok.AllArgsConstructor;
+
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 
 import java.util.Arrays;
+
 @Component
+@AllArgsConstructor
 public class MongoBeanLogger {
-    @Autowired
-    private ApplicationContext ctx;
+    
+    private final ApplicationContext ctx;
 
     @EventListener(ApplicationReadyEvent.class)
     public void onReady() {

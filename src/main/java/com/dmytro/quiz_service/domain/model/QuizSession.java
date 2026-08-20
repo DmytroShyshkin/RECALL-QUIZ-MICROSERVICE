@@ -1,6 +1,5 @@
 package com.dmytro.quiz_service.domain.model;
 
-import com.dmytro.quiz_service.adapters.in.rest.quiz.dto.QuizQuestionResponse;
 import lombok.*;
 
 import java.time.LocalDateTime;

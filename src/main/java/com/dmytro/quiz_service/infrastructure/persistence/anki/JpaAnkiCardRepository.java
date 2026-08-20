@@ -1,6 +1,5 @@
 package com.dmytro.quiz_service.infrastructure.persistence.anki;
 
-import com.dmytro.quiz_service.domain.model.AnkiCard;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.time.LocalDateTime;
