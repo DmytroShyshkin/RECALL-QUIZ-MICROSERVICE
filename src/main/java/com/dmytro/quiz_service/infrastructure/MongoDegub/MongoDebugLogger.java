@@ -1,14 +1,14 @@
 package com.dmytro.quiz_service.infrastructure.MongoDegub;
 
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
+
 import com.mongodb.ConnectionString;
 
 import lombok.AllArgsConstructor;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.env.Environment;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
@@ -36,7 +36,6 @@ public class MongoDebugLogger {
             System.out.println("Failed to parse ConnectionString: " + e.getMessage());
         }
 
-        // Optional: try to reflectively get settings from the mongo bean (best-effort)
         try {
             java.lang.reflect.Method m = mongoBean.getClass().getMethod("getSettings");
             Object settings = m.invoke(mongoBean);

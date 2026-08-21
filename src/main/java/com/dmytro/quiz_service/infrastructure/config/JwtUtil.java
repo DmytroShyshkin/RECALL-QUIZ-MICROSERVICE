@@ -1,12 +1,13 @@
 package com.dmytro.quiz_service.infrastructure.config;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
+import java.security.Key;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtUtil {
@@ -34,8 +35,8 @@ public class JwtUtil {
         return Jwts.parser()
                 .setSigningKey(getSigningKey())
                 .build()
-                .parseClaimsJws(cleanToken)
-                .getBody();
+                .parseSignedClaims(cleanToken)
+                .getPayload();
     }
 
     private Key getSigningKey() {
