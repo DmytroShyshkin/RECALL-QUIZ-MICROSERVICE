@@ -1,5 +1,7 @@
 package com.dmytro.quiz_service.infrastructure.MongoDegub;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.EventListener;
@@ -13,6 +15,8 @@ import lombok.AllArgsConstructor;
 @Component
 @AllArgsConstructor
 public class MongoDebugLogger {
+
+    private static final Logger log = LoggerFactory.getLogger(MongoDebugLogger.class);
 
     private final ApplicationContext ctx;
 
@@ -36,15 +40,27 @@ public class MongoDebugLogger {
             System.out.println("Failed to parse ConnectionString: " + e.getMessage());
         }
 
-        try {
-            java.lang.reflect.Method m = mongoBean.getClass().getMethod("getSettings");
-            Object settings = m.invoke(mongoBean);
-            System.out.println("MongoClient.getSettings() class: " + (settings == null ? "null" : settings.getClass().getName()));
-            System.out.println("MongoClient settings toString: " + (settings == null ? "null" : settings.toString()));
-        } catch (NoSuchMethodException nsme) {
-            System.out.println("MongoClient.getSettings() not available on bean class.");
-        } catch (Exception ex) {
-            System.out.println("Error reading MongoClient settings reflectively: " + ex.getMessage());
+        if (mongoBean == null) {
+            log.warn("MongoBean is empty");
+        } else {
+            try {
+                java.lang.reflect.Method m =
+                    mongoBean.getClass().getMethod("getSettings");
+
+                Object settings = m.invoke(mongoBean);
+                System.out.println(
+                    "MongoClient.getSettings() class: "
+                        + (settings == null ? "null" : settings.getClass().getName()));
+                System.out.println(
+                    "MongoClient settings toString: "
+                        + (settings == null ? "null" : settings));
+            } catch (NoSuchMethodException nsme) {
+                System.out.println("MongoClient.getSettings() not available on bean class.");
+            } catch (Exception ex) {
+                System.out.println(
+                    "Error reading MongoClient settings reflectively: "
+                            + ex.getMessage());
+            }
         }
 
         // Env checks
