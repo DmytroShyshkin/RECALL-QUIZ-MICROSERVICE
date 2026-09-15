@@ -10,4 +10,5 @@ public interface JpaWordSnapshotRepository extends MongoRepository<WordSnapshotD
     Optional<WordSnapshotDocument> findByWordIdAndOwnerEmail(UUID wordId, String ownerEmail);
     List<WordSnapshotDocument> findAllByOwnerEmail(String ownerEmail);
     void deleteByWordId(UUID wordId);
+    void deleteAllByOwnerEmail(String ownerEmail);
 }

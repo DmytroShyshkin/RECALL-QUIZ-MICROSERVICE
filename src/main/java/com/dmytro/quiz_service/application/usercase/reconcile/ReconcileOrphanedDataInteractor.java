@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.dmytro.quiz_service.domain.ports.in.ReconcileOrphanedDataUseCase;
 import com.dmytro.quiz_service.domain.ports.out.AnkiCardPort;
 import com.dmytro.quiz_service.domain.ports.out.QuizRepositoryPort;
+import com.dmytro.quiz_service.domain.ports.out.WordSnapshotPort;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +19,13 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class ReconcileOrphanedDataInteractor implements ReconcileOrphanedDataUseCase {
-    
+
     private static final double MAX_ORPHANED_RATIO = 0.5;
-    
+
     private final AnkiCardPort ankiCardPort;
     private final QuizRepositoryPort quizRepositoryPort;
-    
+    private final WordSnapshotPort wordSnapshotPort;
+
     @Override
     public void reconcile(Set<String> liveEmails) {
         if (liveEmails == null || liveEmails.isEmpty()) {
@@ -33,6 +35,7 @@ public class ReconcileOrphanedDataInteractor implements ReconcileOrphanedDataUse
 
         reconcileAnkiCards(liveEmails);
         reconcileQuizSessions(liveEmails);
+        reconcileWordSnapshots(liveEmails);
     }
 
     private void reconcileAnkiCards(Set<String> liveEmails) {
@@ -85,6 +88,31 @@ public class ReconcileOrphanedDataInteractor implements ReconcileOrphanedDataUse
 
         if (!orphanedUserIds.isEmpty()) {
             log.info("Reconciliation removed quiz sessions for {} orphaned userId(s)", orphanedUserIds.size());
+        }
+    }
+
+    private void reconcileWordSnapshots(Set<String> liveEmails) {
+        List<String> trackedEmails = wordSnapshotPort.findDistinctOwnerEmails();
+        if (trackedEmails.isEmpty()) {
+            return;
+        }
+
+        List<String> orphanedEmails = trackedEmails.stream()
+                .filter(email -> !liveEmails.contains(email))
+                .toList();
+
+        if (!isSafeToDelete(orphanedEmails.size(), trackedEmails.size())) {
+            log.error("Word snapshot reconciliation aborted: {} of {} tracked emails look orphaned (> {}%) — " +
+                            "treating this as a suspicious/incomplete snapshot rather than deleting.",
+                    orphanedEmails.size(), trackedEmails.size(), (int) (MAX_ORPHANED_RATIO * 100));
+            return;
+        }
+
+        orphanedEmails.forEach(wordSnapshotPort::deleteAllByOwnerEmail);
+
+        if (!orphanedEmails.isEmpty()) {
+            log.info("Reconciliation removed word snapshots for {} orphaned email(s): {}",
+                    orphanedEmails.size(), orphanedEmails);
         }
     }
 
