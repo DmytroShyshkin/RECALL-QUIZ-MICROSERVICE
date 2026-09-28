@@ -25,6 +25,7 @@ public class AnkiCard {
     private int lapses;            // how many times did you forget it?
 
     private CardState state;       // NEW, LEARNING, REVIEW, RELEARNING
+    private int learningStep;      // index into the LEARNING/RELEARNING steps array
     // ~FSRS
 
     private int repetitions;

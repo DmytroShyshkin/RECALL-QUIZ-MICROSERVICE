@@ -26,14 +26,14 @@ public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    // 404 - доменная сущность не найдена (AnkiCardNotFoundException, QuizSessionNotFoundException, ...)
+    // 404 - domain entity not found (AnkiCardNotFoundException, QuizSessionNotFoundException, ...)
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFound(NotFoundException ex, HttpServletRequest req) {
         log.warn("Not found: {}", ex.getMessage());
         return build(HttpStatus.NOT_FOUND, ex.getMessage(), req);
     }
 
-    // 409 - валидный запрос, но текущее состояние не позволяет его выполнить
+    // 409 - valid request, but the current state doesn't allow it
     // (QuizAlreadyCompletedException, NoWordsAvailableException, ...)
     @ExceptionHandler(ConflictException.class)
     public ResponseEntity<ErrorResponse> handleConflict(ConflictException ex, HttpServletRequest req) {
@@ -41,22 +41,22 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.CONFLICT, ex.getMessage(), req);
     }
 
-    // 403 - карточка/сессия существует, но принадлежит другому пользователю
+    // 403 - card/session exists, but belongs to another user
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAccessDenied(AccessDeniedException ex, HttpServletRequest req) {
         log.warn("Forbidden on {}: {}", req.getRequestURI(), ex.getMessage());
         return build(HttpStatus.FORBIDDEN, ex.getMessage(), req);
     }
 
-    // 400 - оставшиеся случаи "некорректный аргумент" (например, пустой userEmail),
-    // не подпадающие под NotFound/Conflict
+    // 400 - remaining "invalid argument" cases (e.g. an empty userEmail)
+    // that don't fall under NotFound/Conflict
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleBadRequest(IllegalArgumentException ex, HttpServletRequest req) {
         log.warn("Bad request on {}: {}", req.getRequestURI(), ex.getMessage());
         return build(HttpStatus.BAD_REQUEST, ex.getMessage(), req);
     }
 
-    // 400 - валидация @RequestBody (jakarta.validation через @Valid)
+    // 400 - @RequestBody validation (jakarta.validation via @Valid)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationErrors(
             MethodArgumentNotValidException ex,
@@ -81,7 +81,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
-    // 400 - валидация @PathVariable / @RequestParam
+    // 400 - @PathVariable / @RequestParam validation
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorResponse> handleConstraintViolation(
             ConstraintViolationException ex,
@@ -105,14 +105,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
-    // 502 - вызов основного backend (WordsClientAdapter -> /words/user) упал или ответил ошибкой
+    // 502 - call to the main backend (WordsClientAdapter -> /words/user) failed or errored
     @ExceptionHandler({WebClientResponseException.class, WebClientRequestException.class})
     public ResponseEntity<ErrorResponse> handleDownstreamFailure(Exception ex, HttpServletRequest req) {
         log.error("Downstream call failed on {}: {}", req.getRequestURI(), ex.getMessage(), ex);
         return build(HttpStatus.BAD_GATEWAY, "Upstream service is unavailable, try again later.", req);
     }
 
-    // 500 - всё, что не предусмотрено выше
+    // 500 - everything not covered above
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleAllUnhandled(Exception ex, HttpServletRequest req) {
         log.error("Unhandled exception on {}: {}", req.getRequestURI(), ex.getMessage(), ex);
