@@ -10,4 +10,5 @@ public interface WordSnapshotPort {
     void deleteByWordId(UUID wordId);
     void deleteAllByOwnerEmail(String ownerEmail);
     List<String> findDistinctOwnerEmails();
+    List<WordSnapshot> findAllByOwnerEmailAndLanguage(String ownerEmail, String language);
 }

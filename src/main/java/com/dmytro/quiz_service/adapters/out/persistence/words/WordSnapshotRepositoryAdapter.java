@@ -2,6 +2,7 @@ package com.dmytro.quiz_service.adapters.out.persistence.words;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
@@ -40,5 +41,12 @@ public class WordSnapshotRepositoryAdapter implements WordSnapshotPort {
     @Override
     public List<String> findDistinctOwnerEmails() {
         return mongoTemplate.findDistinct(new Query(), "ownerEmail", WordSnapshotDocument.class, String.class);
+    }
+
+    @Override
+    public List<WordSnapshot> findAllByOwnerEmailAndLanguage(String ownerEmail, String language) {
+        return repository.findAllByOwnerEmailAndLanguage(ownerEmail, language).stream()
+                .map(mapper::toDomain)
+                .collect(Collectors.toList());
     }
 }
