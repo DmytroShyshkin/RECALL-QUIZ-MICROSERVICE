@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface JpaWordSnapshotRepository extends MongoRepository<WordSnapshotDocument, UUID> {
     Optional<WordSnapshotDocument> findByWordIdAndOwnerEmail(UUID wordId, String ownerEmail);
     List<WordSnapshotDocument> findAllByOwnerEmail(String ownerEmail);
-    List<WordSnapshotDocument> findAllByOwnerEmailAndLanguage(String ownerEmail, String language);
+    List<WordSnapshotDocument> findAllByOwnerEmailAndSourceLanguage(String ownerEmail, String language);
     void deleteByWordId(UUID wordId);
     void deleteAllByOwnerEmail(String ownerEmail);
 }

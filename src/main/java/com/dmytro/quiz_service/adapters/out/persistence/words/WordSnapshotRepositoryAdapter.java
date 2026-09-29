@@ -44,8 +44,8 @@ public class WordSnapshotRepositoryAdapter implements WordSnapshotPort {
     }
 
     @Override
-    public List<WordSnapshot> findAllByOwnerEmailAndLanguage(String ownerEmail, String language) {
-        return repository.findAllByOwnerEmailAndLanguage(ownerEmail, language).stream()
+    public List<WordSnapshot> findAllByOwnerEmailAndSourceLanguage(String ownerEmail, String language) {
+        return repository.findAllByOwnerEmailAndSourceLanguage(ownerEmail, language).stream()
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());
     }
