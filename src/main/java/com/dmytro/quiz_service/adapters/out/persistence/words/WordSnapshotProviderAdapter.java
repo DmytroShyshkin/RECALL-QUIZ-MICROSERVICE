@@ -29,7 +29,7 @@ public class WordSnapshotProviderAdapter implements WordsProviderPort {
 
         if (email == null) {    throw new IllegalArgumentException("Invalid JWT token: email not found");   }
 
-        List<WordSnapshot> snapshots = wordSnapshotPort.findAllByOwnerEmailAndLanguage(email, language);
+        List<WordSnapshot> snapshots = wordSnapshotPort.findAllByOwnerEmailAndSourceLanguage(email, language);
         return mapper.toWordsDtoList(snapshots);
     }
 
