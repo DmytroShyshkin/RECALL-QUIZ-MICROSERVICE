@@ -2,6 +2,7 @@ package com.dmytro.quiz_service.adapters.out.persistence.words;
 
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import com.dmytro.quiz_service.domain.model.WordSnapshot;
@@ -13,6 +14,7 @@ import com.dmytro.quiz_service.infrastructure.config.JwtUtil;
 import lombok.RequiredArgsConstructor;
 
 @Component
+@ConditionalOnProperty(name = "recall.words-provider.source", havingValue = "mongo")
 @RequiredArgsConstructor
 public class WordSnapshotProviderAdapter implements WordsProviderPort {
 
