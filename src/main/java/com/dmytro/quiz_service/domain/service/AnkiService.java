@@ -14,6 +14,7 @@ public class AnkiService {
     // classic Anki-style defaults — tune to taste
     private static final int[] LEARNING_STEPS_MINUTES = {1, 10};
     private static final int[] RELEARNING_STEPS_MINUTES = {10};
+    private static final int GRADUATING_INTERVAL_MINUTES = 30;
 
     public AnkiCard applyFsrs(AnkiCard card, int rating) {
         return switch (card.getState()) {
@@ -66,8 +67,7 @@ public class AnkiService {
             card.setState(CardState.REVIEW);
             card.setLearningStep(0);
 
-            int intervalDays = calculateInterval(stability);
-            card.setNextReviewAt(LocalDateTime.now().plusDays(intervalDays));
+            card.setNextReviewAt(LocalDateTime.now().plusMinutes(GRADUATING_INTERVAL_MINUTES));
         } else {
             card.setState(wasRelearning ? CardState.RELEARNING : CardState.LEARNING);
             card.setLearningStep(nextStep);
